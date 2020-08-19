@@ -96,10 +96,10 @@ app.post("/blogs", (req, res) => {
  const blog = new Blog(req.body);
 
  blog.save()
- .then(result => {
+ .then((result) => {
    res.redirect("/blogs");
  })
- .catch(err => {
+ .catch((err) => {
    console.log(err);
  });
 });
@@ -110,10 +110,10 @@ app.post("/blogs", (req, res) => {
 app.get("/blogs/:id", (req, res) => {
   const id = req.params.id;
   Blog.findById(id)
-    .then(result => {
+    .then((result) => {
       res.render("details", { blog: result, title: "Blog Details" });
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
     });
 });
@@ -121,25 +121,24 @@ app.get("/blogs/:id", (req, res) => {
 app.get("/blogs/:id", (req, res) => {
   const id = req.params.id;
   Blog.findById(id)
-    .then(result => {
+    .then((result) => {
       res.render("details", { blog: result, title: "Blog Details" });
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
     });
 });
 
-app.delete("/blogs/:id", (req, res) => {
+app.delete('/blogs/:id', (req, res) => {
   const id = req.params.id;
-  
   Blog.findByIdAndDelete(id)
-    .then(result => {
-      res.json({ redirect: "/blogs" });
-    })
-    .catch(err => {
-      console.log(err);
-    });
-});
+  .then(result => {
+    // we are going to send json with a redicrt property
+    res.json({redirect: '/blogs'})
+  })
+  .catch(err => {console.log(err)})
+})
+
 
 // 404 page
 app.use((req, res) => {
